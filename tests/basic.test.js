@@ -35,6 +35,42 @@ describe("Tests basiques", () => {
         expect(html).toContain("powered by Polr 2")
     }, timeout)
 
+    // parcours client avec Sign Up
+    test('home and sign up', async () => {
+        await page.goto('http://polr.campus-grenoble.fr')
+        await page.waitForSelector('#navbar li a')
+        // click sur le lien "Sign Up" de la navigation
+        await page.evaluate(() => {
+            Array
+                .from(document.querySelectorAll('#navbar li a'))
+                .filter(el => el.textContent === 'Sign Up')[0].click();
+        });
+        // on attent que l'élément ".content-div" soit chargé
+        await page.waitForSelector('.content-div')
+        // on récupère le code HTML
+        const html = await page.$eval('.content-div', e => e.innerHTML)
+        // on vérifie qu'il contient la bonne chaîne de caractères
+        expect(html).toContain("Register")
+    }, timeout)
+
+
+    // parcours client avec Sign In
+    test('home and sign in', async () => {
+        await page.goto('http://polr.campus-grenoble.fr')
+        await page.waitForSelector('#navbar li a')
+        // click sur le lien "Sign In" de la navigation
+        await page.evaluate(() => {
+            Array
+                .from(document.querySelectorAll('#navbar li a'))
+                .filter(el => el.textContent === 'Sign In')[0].click();
+        });
+        // on attent que l'élément "#dropdown" soit chargé
+        await page.waitForSelector('#dropdown')
+        // on récupère le code HTML
+        const html = await page.$eval('#dropdown', e => e.innerHTML)
+        // on vérifie qu'il contient la bonne chaîne de caractères
+        expect(html).toContain("Login")
+    }, timeout)
 
     // cette fonction est lancée avant chaque test de cette
     // série de tests
