@@ -55,6 +55,33 @@ describe("QR code generate", () => {
 
     }, timeout)
 
+    // Vérification que le champs de saisie est bien vide
+    test('basic qrcode generate + home return + blankfield', async () => {
+
+        // Génération d'une url courte
+        await page.goto('http://polr.campus-grenoble.fr')
+        await page.waitForSelector('.long-link-input')
+        await page.type('.long-link-input', 'https://www.google.com/search?source=hp&ei=QQbPW52GC9CRlwSHw46oAg&q=puppeteer+jest&oq=puppeteer+jest&gs_l=psy-ab.3...2441.6095.0.6926.0.0.0.0.0.0.0.0..0.0....0...1c.1.64.psy-ab..0.0.0....0.qKd5wLlrTYk');
+        await page.$eval('#shorten', el => el.click());
+        await page.waitForSelector('#short_url')
+        await page.screenshot({ path: './tests/img/shorturl-for-qrcode.png' });
+        // on attend que le bouton "Générate QR Code" soit affiché
+        await page.waitForSelector('#generate-qr-code')
+        await page.$eval('#generate-qr-code', el => el.click());
+        // on attent que l'élément ".qr-code-container" soit chargé
+        await page.waitForSelector('.btn-info')
+        // cliquer sur le bouton "Shorten nother"
+        await page.$eval('.btn-info', el => el.click());
+        // On attend que l'élément <long-link-input> soit chargé
+        await page.waitForSelector('.long-link-input')
+        // On récupère le contenu de l'élément <long-link-input>
+        const html = await page.$eval('.long-link-input', e => e.innerHTML)
+        // On vérifie que le champs de saisie est vide
+        await page.screenshot({ path: './tests/img/basic-home-return.png' });
+        expect(html).value = "";
+
+    }, timeout)
+
 
     // cette fonction est lancée avant chaque test de cette
     // série de tests
