@@ -21,7 +21,7 @@ describe("QR code generate", () => {
         await page.waitForSelector('.qr-code-container')
         // on récupère le code HTML
         const html = await page.$eval('.qr-code-container', e => e.innerHTML)
-        // fait une capture d'écran de la page contenant le QR Code
+        // on fait une capture d'écran de la page contenant le QR Code
         await page.screenshot({ path: './tests/img/img.png' });
         // on vérifie qu'il contient une image
         expect(html).toContain('img')
@@ -43,13 +43,13 @@ describe("QR code generate", () => {
         await page.$eval('#generate-qr-code', el => el.click());
         // on attent que l'élément ".qr-code-container" soit chargé
         await page.waitForSelector('.btn-info')
-        // cliquer sur le bouton "Shorten nother"
+        // on clique sur le bouton "Shorten nother"
         await page.$eval('.btn-info', el => el.click());
-        // attendre que l'élément <body> soit chargé
+        // on attend que l'élément <body> soit chargé
         await page.waitForSelector('body')
-        // récupérer le contenu de l'élément <body>
+        // on récupère le contenu de l'élément <body>
         const html = await page.$eval('body', e => e.innerHTML)
-        // vérifier que dans cet élément Body on trouve "Polr du campus"
+        // on vérifie que dans cet élément Body on trouve "Polr du campus"
         await page.screenshot({ path: './tests/img/basic-home-return.png' });
         expect(html).toContain("Polr du campus")
 
@@ -70,13 +70,13 @@ describe("QR code generate", () => {
         await page.$eval('#generate-qr-code', el => el.click());
         // on attent que l'élément ".qr-code-container" soit chargé
         await page.waitForSelector('.btn-info')
-        // cliquer sur le bouton "Shorten nother"
+        // on clique sur le bouton "Shorten nother"
         await page.$eval('.btn-info', el => el.click());
-        // On attend que l'élément <long-link-input> soit chargé
+        // on attend que l'élément <long-link-input> soit chargé
         await page.waitForSelector('.long-link-input')
-        // On récupère le contenu de l'élément <long-link-input>
+        // on récupère le contenu de l'élément <long-link-input>
         const html = await page.$eval('.long-link-input', e => e.innerHTML)
-        // On vérifie que le champs de saisie est vide
+        // on vérifie que le champs de saisie est vide
         await page.screenshot({ path: './tests/img/basic-home-return.png' });
         expect(html).value = "";
 
