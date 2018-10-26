@@ -13,7 +13,7 @@ describe("QR code verification", () => {
         await page.type('.long-link-input', 'https://zxing.org/w/decode.jspx');
         await page.$eval( '#shorten', el => el.click() );
         await page.waitForSelector('#short_url')
-        await page.screenshot({ path: './tests/img/shorturl-for-qrcode.png' });
+        await page.screenshot({ path: './tests/img/qrcode-test/shorturl-for-qrcode.png' });
         // Récupere la valeur du champs "short url"
         const valurl = await page.$eval('#short_url', el => el.value)
         // on attend que le bouton "Générate QR Code" soit affiché
@@ -27,14 +27,14 @@ describe("QR code verification", () => {
         await page.waitForSelector('#upload')
         //await page.type('input[type="text"]', imgs);
         await page.type('input[name="u"]', imgs);
-        await page.screenshot({ path: './tests/img/test.png' });
+        await page.screenshot({ path: './tests/img/qrcode-test/verification-page-test.png' });
         await page.$eval('#upload tr:first-child input[type=submit]', el => el.click());
-        await page.waitForSelector('#result');
-        const button = await page.$('form[method="get"] > input [type="submit"]');
-        await button.click();
-        await page.waitFor(20000);
+        //await page.waitForSelector('#main');
+        //const button = await page.$('form[method="get"] input[type="submit"]');
+        //await button.click();
+        //await page.waitFor(20000);
         await page.screenshot({
-            path: './tests/img/test2.png',
+            path: './tests/img/qrcode-test/verification-page-test2.png',
             fullPage: true});
       
                 
