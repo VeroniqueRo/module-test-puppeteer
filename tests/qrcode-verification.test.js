@@ -30,11 +30,9 @@ describe("QR code verification", () => {
         await page.screenshot({ path: './tests/img/test.png' });
         await page.$eval('#upload tr:first-child input[type=submit]', el => el.click());
         await page.waitForSelector('#result');
-        //const button = await page.$('form[method="get"] > input [type="submit"]');
-        //await button.click();
-        //await page.waitFor(20000);
-        //await page.keyboard.press('Enter');
-        //await page.keyboard.press('Enter');
+        const button = await page.$('form[method="get"] > input [type="submit"]');
+        await button.click();
+        await page.waitFor(20000);
         await page.screenshot({
             path: './tests/img/test2.png',
             fullPage: true});

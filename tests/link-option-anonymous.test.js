@@ -13,12 +13,12 @@ describe("Link option anonymous", () => {
         await page.waitForSelector('#show-link-options')
         // on clique sur le bouton <Link Option>
         await page.$eval('#show-link-options', el => el.click());
-        // on attend que l'accordéon des options soit chargé + time
-        await page.waitForSelector('#options')
+        // on attend que l'accordéon des options soit chargé + time pour l'animation accordéon
+        await page.waitForSelector('#options', {visible: true} )
         await page.waitFor(2000)
         // on prend une capture d'écran
         await page.screenshot({ path: './tests/img/link-option-test/link-options-open.png' })
-        // on récupere la valeur du champs "p"
+        // on récupere la valeur du champs "h2"
         const html = await page.$eval('#options h2', e => e.innerHTML)
         // on vérifier que dans cet élément on trouve "Customize link"
         expect(html).toContain("polr.campus-grenoble.fr/")
@@ -34,7 +34,6 @@ describe("Link option anonymous", () => {
         await page.$eval('#show-link-options', el => el.click());
         await page.waitForSelector('#options')
         await page.waitFor(2000)
-
         // on saisi une extention dans le champs
         await page.type('.custom-link-text input[name=custom-ending]', 'VERO');
         // on prend une capture d'écran
@@ -62,15 +61,14 @@ describe("Link option anonymous", () => {
         await page.$eval('#show-link-options', el => el.click());
         await page.waitForSelector('#options')
         await page.waitFor(2000)
-
         // on saisi une extention dans le champs
-        await page.type('.custom-link-text input[name=custom-ending]', 'VERO3');
+        await page.type('.custom-link-text input[name=custom-ending]', 'VERO6');
         await page.$eval('#shorten', el => el.click());
         // on prend une capture d'écran
         await page.screenshot({ path: './tests/img/link-option-test/link-options-shorten1.png' })
         const val = await page.$eval('#short_url', el => el.value)
         // on vérifie que l'adresse courte contient l'extension VERO3
-        expect(val).toMatch(/^http:\/\/polr\.campus\-grenoble\.fr\/\VERO3/)
+        expect(val).toMatch(/^http:\/\/polr\.campus\-grenoble\.fr\/\VERO6/)
 
     }, timeout)
 
